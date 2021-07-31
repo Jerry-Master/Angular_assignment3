@@ -31,6 +31,8 @@ function NarrowItDownController(MenuSearchService) {
   itemAdder.browseItems = function(){
     var promise = MenuSearchService.getMatchedMenuItems(itemAdder.searchTerm);
     promise.then(function (response) {
+      console.log(response);
+
       itemAdder.items = response;
     }).catch(function (error) {
       console.log(error);
@@ -64,6 +66,7 @@ function MenuSearchService($http) {
       }).then(function (result) {
         // process result and only keep items that match
         var data = result.data.menu_items;
+        items = [];
         for (let i = 0; i < data.length; i++){
           if (data[i].description.toLowerCase().indexOf(searchTerm) !== -1){
             items.push(data[i]);
